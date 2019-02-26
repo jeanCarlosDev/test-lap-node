@@ -8,13 +8,15 @@ const pool = new Pool({
   user: 'postgres',
   host: 'localhost',
   database: 'postgres',
-  password: '',
+  password: '123456',
   port: 5432,
 })
 
 
 app.use('/', (req, res, next) => {
-    console.log(req.url);
+    console.log(req.method);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 
 });
@@ -38,16 +40,16 @@ app.get('/employee/getAll', (req, res)=>{
 });
 
 app.post('/employee/save',(req, res)=>{
-   
    const { first_name, last_name, participation } = req.body;
    
    pool.query('INSERT INTO employee (first_name, last_name, participation) VALUES ($1, $2, $3)', [first_name, last_name, participation], (error, results) => {
       if (error) {
-        res.json({ 
-          status:400,
-          msg:'All fields are mandatory.'  
-        });
+          res.json({ 
+            status:400,
+            msg:'All fields are mandatory and Participation must be a number.'  
+          }); 
       }else{
+      
         res.json({ 
           status:200,
           msg:'User successfully registered!'  
