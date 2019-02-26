@@ -15,3 +15,16 @@ Configurar o usuário e senha do banco de dados(postgres) que fica na linha  10 
 ```bash
 \src\index.js
 ```
+
+Executar API:
+
+```bash
+ npm start
+```
+
+Obs:
+
+Para efetuar rotina de testes dos endpoints:
+```bash
+ npm test
+```
